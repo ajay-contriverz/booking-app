@@ -1,0 +1,35 @@
+.searchBanner, .loginPage{
+  min-height: 100vh;
+  background-color: #4b7ada;
+  background-image: url("../images/banner.png");
+}
+.form-control:focus,
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+header {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.searchBox {
+  background-color: #4b7bda71;
+  backdrop-filter: blur(2px);
+}
+input.form-control {
+  font-size: 14px;
+  height: 45px;
+  border-radius: 0;
+}
+.btn {
+  height: 45px;
+}
+.searchBox {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+}
+a{
+  text-decoration: none;
+}
