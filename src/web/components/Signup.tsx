@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { signupFun } from '../../store/slices/signupSlice';
 
 export default function Signup(props: any) {
     const [errMsg, setErrMsg] = useState<string>()
     const [successMsg, setSuccessMsg] = useState<string>()
+    // const [loading, setLoading] = useState<boolean>()
     const { register, handleSubmit } = useForm();
     const dispatch: any = useDispatch();
+    const loading = useSelector((state: any) => state.signUp.loading);
+    console.log(loading)
+
     const onSubmitFun: SubmitHandler<any> = (data, e) => {
         let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if(!data.username || !data.email || !data.password){
@@ -16,11 +20,13 @@ export default function Signup(props: any) {
             setErrMsg("Enter valid email!")
         }else if(data.password === data.confirmPassword){
           delete data.confirmPassword;
-          console.log(data)
             dispatch(signupFun(data));
             setErrMsg("");
             e?.target.reset();
-            setSuccessMsg("Your new account has been created successfully! go to login page.")
+            setSuccessMsg("Your new account has been created successfully!")
+            setTimeout(() => {
+                window.location.replace("/")
+            }, 2000);
         } else {
             setErrMsg("Password and confirm password does not match");
         }
@@ -48,6 +54,7 @@ export default function Signup(props: any) {
             <div className="form-group mb-3">
                 <input className='btn w-100 bg-brand text-white ml-auto' type={"submit"} value={"Submit"} />
             </div>
+            {loading && <p className='text-white'>loading...</p>}
             {errMsg && <p className='badge bg-danger w-100'>{errMsg}</p>}
             {successMsg && <p className='badge bg-success w-100'>{successMsg}</p>}
         </form>

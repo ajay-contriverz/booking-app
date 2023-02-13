@@ -48,6 +48,7 @@ export const signupFun = (data: any) => async (dispatch: any) => {
         dispatch(signupFailure(response.data.message));
       }
       dispatch(signupSuccess(response.data.auth));
+      localStorage.setItem("authToken", response.data.auth)
     } else {
       dispatch(signupFailure(response.data.error));
     }

@@ -3,9 +3,13 @@ import Homepage from "./web/pages/homepage";
 import Listings from "./web/pages/listings";
 import Product from "./web/pages/product";
 import AdminLogin from "./admin/pages/login";
-import HotelLogin from "./hotel/pages/login";
+import AgencyLogin from "./hotel/pages/login";
 import NotFound from "./notFound";
 import UserLogin from "./web/pages/login";
+import UserProfile from "./web/pages/profile";
+import AgencyRegister from "./hotel/pages/signUp";
+import AgencyDashboard from "./hotel/pages/dashboard";
+
 function App() {
   return (
     <>
@@ -15,12 +19,15 @@ function App() {
           <Route path="listings" element={<Listings />} />
           <Route path="product" element={<Product />} />
           <Route path="login" element={<UserLogin />} />
+          <Route path="profile" element={<UserProfile />} />
 
           {/* admin */}
           <Route path="admin" element={<AdminLogin />} />
 
           {/* hotel */}
-          <Route path="hotel" element={<HotelLogin />} />
+          <Route path="agency" element={<AgencyLogin />} />
+          <Route path="register" element={<AgencyRegister />} />
+          <Route path="dashboard" element={<AgencyDashboard />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

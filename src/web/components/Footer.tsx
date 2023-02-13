@@ -1,5 +1,11 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
-  return <div>footer</div>;
+  return <>
+  <footer>
+    <div className="container">
+      <Link to={"hotelLogin"}>Agency Login</Link>
+    </div>
+  </footer>
+  </>;
 }

@@ -1,5 +1,6 @@
 import { Action, configureStore } from '@reduxjs/toolkit'
 import signupReducer from './slices/signupSlice'
+import loginReducer from './slices/loginSlice';
 import thunkMiddleware from 'redux-thunk';
 
 interface RootState {
@@ -8,12 +9,19 @@ interface RootState {
     error: string | null;
     auth: string | null;
     success: boolean;
-  };
+  },
+  login: {
+    loading: boolean;
+    error: string | null;
+    auth: string | null;
+    success: boolean;
+  }
 }
 
 export const store = configureStore({
   reducer: {
-    signUp: signupReducer
+    signUp: signupReducer,
+    login: loginReducer
   },
   middleware: [thunkMiddleware]
 })
