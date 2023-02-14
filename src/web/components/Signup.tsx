@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { signupFun } from '../../store/slices/signupSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup(props: any) {
+    const navigate = useNavigate()
     const [errMsg, setErrMsg] = useState<string>()
     const [successMsg, setSuccessMsg] = useState<string>()
     // const [loading, setLoading] = useState<boolean>()
@@ -25,7 +27,7 @@ export default function Signup(props: any) {
             e?.target.reset();
             setSuccessMsg("Your new account has been created successfully!")
             setTimeout(() => {
-                window.location.replace("/")
+                navigate("/")
             }, 2000);
         } else {
             setErrMsg("Password and confirm password does not match");

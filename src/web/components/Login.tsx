@@ -17,24 +17,19 @@ export default function Login() {
 
     const loginHandler: SubmitHandler<any> = async (data, e: any) => {
         dispatch(loginRequest())
-        try {
-            const res = await axios.post(`${apiUrl}/login`, data);
-            if (res.status == 200){
-                if (res.data.success){
-                    dispatch(loginSuccess(res.data.result));
-                    localStorage.setItem("authToken", res.data.auth)
-                    setTimeout(() => {
-                        navigate("/")
-                    }, 2000);
-                } else {
-                    dispatch(loginError(res.data.result))
-                }
-            } else {
-                dispatch(loginError(res.data.result))
+        const res = await axios.post(`${apiUrl}/login`, data);
+        console.log(res)
+        if (res.status == 200){
+            if (res.data.success){
+                dispatch(loginSuccess(res.data.result));
+                localStorage.setItem("authToken", res.data.auth)
+                setTimeout(() => {
+                    navigate("/")
+                }, 2000);
             }
-        } catch (error: any) {
-            dispatch(loginError(error));
+            dispatch(loginError(res.data.result))
         }
+        dispatch(loginError(res.data.result))
     }
   return (
     <>

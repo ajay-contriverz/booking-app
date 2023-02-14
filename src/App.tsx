@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./web/pages/homepage";
 import Listings from "./web/pages/listings";
@@ -10,7 +11,19 @@ import UserProfile from "./web/pages/profile";
 import AgencyRegister from "./hotel/pages/signUp";
 import AgencyDashboard from "./hotel/pages/dashboard";
 
+import { useDispatch } from "react-redux";
+import { agencyLoggedIn, agencyLoggedOut } from "./store/slices/userSlice";
+
 function App() {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    if(localStorage.getItem("agencyAuthToken")){
+      dispatch(agencyLoggedIn());
+    } else {
+      dispatch(agencyLoggedOut());
+    }
+  },[])
+
   return (
     <>
       <Routes>

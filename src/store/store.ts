@@ -2,6 +2,7 @@ import { Action, configureStore } from '@reduxjs/toolkit'
 import signupReducer from './slices/signupSlice'
 import loginReducer from './slices/loginSlice';
 import thunkMiddleware from 'redux-thunk';
+import userReducer from './slices/userSlice';
 
 interface RootState {
   signUp: {
@@ -16,12 +17,17 @@ interface RootState {
     auth: string | null;
     success: boolean;
   }
+  user: {
+    user: boolean,
+    agency: boolean
+  }
 }
 
 export const store = configureStore({
   reducer: {
     signUp: signupReducer,
-    login: loginReducer
+    login: loginReducer,
+    user: userReducer
   },
   middleware: [thunkMiddleware]
 })

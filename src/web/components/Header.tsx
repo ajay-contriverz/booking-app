@@ -8,6 +8,7 @@ export default function Header() {
   const path = useLocation();
   const userLoggedin = useAppSelector<any>((state: any) => state.login.success);
   const userSignUp = useAppSelector<any>((state: any) => state.signUp.success);
+  const agency = useAppSelector<any>((state: any) => state.user.agency);
 
   const classStyle = path.pathname === "/" ? "text-white" : "text-brand";
 
@@ -24,7 +25,11 @@ export default function Header() {
               <h1><Link className={classStyle} to={"/"}>Booking.app</Link></h1>
             </div>
             <div className="col-auto">
-              <Link to={"agency"} className={`${classStyle} me-3`} >Agency</Link>
+              {agency ? 
+              <Link to={"/dashboard"} className={`${classStyle} me-5`} >Dashboard</Link>
+              :
+              <Link to={"agency"} className={`${classStyle} me-5`} >Agency</Link>
+              }
               {user || userSignUp || userLoggedin ? 
                 <button onClick={()=> (localStorage.removeItem("authToken"), setUser(""))} className={`border-0 bg-transparent ${classStyle}`}>Logout</button>
                 :
