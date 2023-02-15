@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <>
-      <header className={`py-3 ${path.pathname === "/" ? "bg-transparent" : "bg-light"}`}>
+      <header className={`py-3 ${path.pathname === "/" ? "bg-transparent position-absolute" : "bg-light"}`}>
         <div className="container">
           <div className="row justify-content-between align-items-center">
             <div className="col-auto">
