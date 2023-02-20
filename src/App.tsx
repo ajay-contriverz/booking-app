@@ -10,12 +10,15 @@ import UserLogin from "./web/pages/login";
 import UserProfile from "./web/pages/profile";
 import AgencyRegister from "./hotel/pages/signUp";
 import AgencyDashboard from "./hotel/pages/dashboard";
+import loader from "./assets/images/loading.svg"
 
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "./store/hook";
 import { agencyLoggedIn, agencyLoggedOut } from "./store/slices/userSlice";
 
 function App() {
   const dispatch = useDispatch();
+  const isLoading = useAppSelector((state)=> state.loading.loading)
   useEffect(()=>{
     if(localStorage.getItem("agencyAuthToken")){
       dispatch(agencyLoggedIn());
@@ -26,6 +29,11 @@ function App() {
 
   return (
     <>
+    {isLoading && 
+      <div className="loadingBox">
+        <img src={loader} alt="" />
+      </div>
+    }
       <Routes>
           {/* website */}
           <Route index element={<Homepage />} />
