@@ -5,6 +5,8 @@ import thunkMiddleware from 'redux-thunk';
 import userReducer from './slices/userSlice';
 import hotelReducer from './slices/hotelSlice';
 import loadingReducer from './slices/loadingSlice';
+import editHotelReducer from './slices/editHotelSlice';
+import authReducer from './slices/authSlice';
 
 interface RootState {
   signUp: {
@@ -27,9 +29,16 @@ interface RootState {
     loading: false,
     error: false,
     success: false
-  }
+  },
   loading: {
     loading: false,
+  },
+  editHotel: {
+    edit: false,
+    editData: {}
+  },
+  auth: {
+    auth: ""
   }
 }
 
@@ -39,7 +48,9 @@ export const store = configureStore({
     login: loginReducer,
     user: userReducer,
     hotel: hotelReducer,
-    loading: loadingReducer
+    loading: loadingReducer,
+    editHotel: editHotelReducer,
+    auth: authReducer
   },
   middleware: [thunkMiddleware]
 })

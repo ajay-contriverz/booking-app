@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hook';
 import { loadStart, loadEnd } from '../../store/slices/loadingSlice';
+import { editOpen } from '../../store/slices/editHotelSlice';
 
 export const apiUrl = "http://192.168.0.173:8080/api";
 
@@ -9,20 +10,24 @@ export default function HotelListing() {
   const [data, setData] = useState([])
   const dispatch = useAppDispatch()
   const hotelAdded = useAppSelector((state) => state.hotel.success)
+  const auth: any = useAppSelector((state) => state.auth.auth)
+  const authId = auth.id
 
   useEffect(()=>{
     listHotel()
-  },[hotelAdded])
+  },[hotelAdded, auth])
 
   const listHotel = async () => {
     dispatch(loadStart())
-    const res = await axios.get(`${apiUrl}/fetch-hotel`) ;
-    if(res.status == 200){
-      dispatch(loadEnd())
-      setData(res.data);
-    } else {
-      dispatch(loadEnd())
-      console.log("Something went wrong!")
+    if(authId !== undefined){
+      const res = await axios.get(`${apiUrl}/fetch-hotel?id=${authId}`) ;
+      if(res.status == 200){
+        dispatch(loadEnd())
+        setData(res.data);
+      } else {
+        dispatch(loadEnd())
+        console.log("Something went wrong!")
+      }
     }
   }
   
@@ -36,6 +41,10 @@ export default function HotelListing() {
       dispatch(loadEnd())
       console.log("Something went wrong!")
     }
+  }
+
+  const editHoteler = (data: any) => {
+    dispatch(editOpen(data))
   }
 
   return (
@@ -75,7 +84,7 @@ export default function HotelListing() {
                     <td>{val.facilities ? val.facilities.join(", ") : "-"}</td>
                     <td>{val.details ? (val.details.length > 40 ? val.details.slice(0, 40)+"..." : val.details) : "-"}</td>
                     <td className='text-end'>
-                      <button className='btn btn-sm bg-brand m-1 text-white'>Edit</button>
+                      <button onClick={()=> editHoteler(val)} className='btn btn-sm bg-brand m-1 text-white'>Edit</button>
                       <button onClick={()=>deleteHandler(val._id)} className='btn btn-sm btn-danger m-1'>Delete</button>
                     </td>
                   </tr>

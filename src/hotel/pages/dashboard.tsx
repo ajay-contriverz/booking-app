@@ -1,10 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AddHotel from '../components/AddHotel'
 import HotelListing from '../components/HotelListing'
 import './../../assets/style/hotel.css'
+import { useAppSelector } from '../../store/hook'
+import { editClose } from '../../store/slices/editHotelSlice';
 
 export default function dashboard() {
   const [ sideBar, setSidebar ] = useState(false);
+  const editHotel = useAppSelector((state) => state.editHotel.edit);
+
+  useEffect(()=> {
+    if(editHotel) return setSidebar(true);
+  },[editHotel])
+
   return (
     <>
       <section className='py-5'>

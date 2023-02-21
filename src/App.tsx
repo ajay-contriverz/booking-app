@@ -15,6 +15,7 @@ import loader from "./assets/images/loading.svg"
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "./store/hook";
 import { agencyLoggedIn, agencyLoggedOut } from "./store/slices/userSlice";
+import { setAuth, removeAuth } from "./store/slices/authSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,8 +23,11 @@ function App() {
   useEffect(()=>{
     if(localStorage.getItem("agencyAuthToken")){
       dispatch(agencyLoggedIn());
+      const authData: any = localStorage.getItem("agencyAuthToken")
+      dispatch(setAuth(JSON.parse(authData)));
     } else {
       dispatch(agencyLoggedOut());
+      dispatch(removeAuth());
     }
   },[])
 
